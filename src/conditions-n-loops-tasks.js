@@ -386,8 +386,23 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(array) {
-  let flag = true;
+function sortByAsc(arr) {
+  if (arr.length < 2) return arr;
+
+  const point = arr[0];
+  const left = [];
+  const right = [];
+  for (let i = 1; i < arr.length; i += 1) {
+    if (arr[i] < point) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+  return sortByAsc(left).concat(point, sortByAsc(right));
+}
+/**
+ *  let flag = true;
   const arr = array;
   while (flag) {
     flag = false;
@@ -399,9 +414,6 @@ function sortByAsc(array) {
     }
   }
   return arr;
-}
-
-/**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
  * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
  * Usage of Array class methods is not allowed in this task.
